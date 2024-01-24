@@ -2,11 +2,13 @@ package com.example.server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.example.server.entity.Role;
 import com.example.server.entity.User;
 import com.example.server.repository.UserRepository;
 
+@Service
 public class AuthService {
     
     @Autowired
