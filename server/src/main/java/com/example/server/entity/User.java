@@ -1,6 +1,8 @@
 package com.example.server.entity;
 import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import java.util.Set;
 
 @Document(collection = "user")
 public class User {
@@ -8,9 +10,16 @@ public class User {
     private String name;
     private String email;
     private String city;
-    private List<Address> address;
+    private List<Address> addresses;
     private List<Vehicle> vehicles;
     private List<String> paymentModes;
+    private String username;
+    private String password;
+
+    @DBRef
+    private Set<Role> roles;
+
+    public User() {}    
 
     /**
      * Constructs a User object with the specified properties.
@@ -19,17 +28,17 @@ public class User {
      * @param name         the user's name
      * @param email        the user's email address
      * @param city         the user's city
-     * @param address      the user's addresses
+     * @param addresses      the user's addresses
      * @param vehicles     the user's vehicles
      * @param paymentModes the user's payment modes
      */
-    public User(String userId, String name, String email, String city, List<Address> address,
+    public User(String userId, String name, String email, String city, List<Address> addresses,
                 List<Vehicle> vehicles, List<String> paymentModes) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.city = city;
-        this.address = address;
+        this.addresses = addresses;
         this.vehicles = vehicles;
         this.paymentModes = paymentModes;
     }
@@ -111,8 +120,8 @@ public class User {
      *
      * @return the user's addresses
      */
-    public List<Address> getAddress() {
-        return address;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
     /**
@@ -120,8 +129,8 @@ public class User {
      *
      * @param address the user's addresses to set
      */
-    public void setAddress(List<Address> address) {
-        this.address = address;
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     /**
@@ -159,6 +168,40 @@ public class User {
     public void setPaymentModes(List<String> paymentModes) {
         this.paymentModes = paymentModes;
     }
+
+        /**
+     * Returns the user's roles.
+     *
+     * @return the user's roles
+     */
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    /**
+     * Sets the user's roles.
+     *
+     * @param roles the user's roles to set
+     */
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }    
     
     /**
      * Returns a string representation of the User object.
@@ -172,11 +215,10 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", city='" + city + '\'' +
-                ", address=" + address +
+                ", addresses=" + addresses +
                 ", vehicles=" + vehicles +
                 ", paymentModes=" + paymentModes +
                 '}';
     }
 }
-
 

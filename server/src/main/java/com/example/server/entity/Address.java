@@ -1,5 +1,4 @@
 package com.example.server.entity;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 public class Address {
     private String addressId;

@@ -2,10 +2,11 @@ package com.example.server.entity;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
+import java.time.LocalDateTime;
 
 @Document(collection = "order")
 public class Order {
-    private String objectId;
+    private String orderId;
     
     @DBRef
     private User user;
@@ -14,11 +15,12 @@ public class Order {
     private double totalAmount;
     private boolean isImmediate;
     private double extraCharges; // shipping charges + taxes
-    private String orderTime;
-    private String deliveryScheduleTime;
+    private LocalDateTime orderTime;
+    private LocalDateTime deliveryScheduleTime;
     private List<FuelItem> orderItems;
     private String deliveryOTP;
-    private String deliveryTime;
+    private LocalDateTime deliveryTime;
+    private String orderStatus;
     
     /**
      * Default constructor for the Order class.
@@ -29,7 +31,7 @@ public class Order {
     
     /**
      * Constructor for the Order class.
-     * @param objectId The unique identifier of the order.
+     * @param orderId The unique identifier of the order.
      * @param user The user who placed the order.
      * @param deliveryLocation The delivery location for the order.
      * @param totalAmount The total amount of the order.
@@ -40,9 +42,10 @@ public class Order {
      * @param orderItems The list of fuel items in the order.
      * @param deliveryOTP The OTP (One-Time Password) for delivery verification.
      * @param deliveryTime The time when the order was delivered.
+     * @param orderStatus The order status.
      */
-    public Order(String objectId, User user, Address deliveryLocation, double totalAmount, boolean isImmediate, double extraCharges, String orderTime, String deliveryScheduleTime, List<FuelItem> orderItems, String deliveryOTP, String deliveryTime) {
-        this.objectId = objectId;
+    public Order(String orderId, User user, Address deliveryLocation, double totalAmount, boolean isImmediate, double extraCharges, LocalDateTime orderTime, LocalDateTime deliveryScheduleTime, List<FuelItem> orderItems, String deliveryOTP, LocalDateTime deliveryTime, String orderStatus) {
+        this.orderId = orderId;
         this.user = user;
         this.deliveryLocation = deliveryLocation;
         this.totalAmount = totalAmount;
@@ -53,22 +56,23 @@ public class Order {
         this.orderItems = orderItems;
         this.deliveryOTP = deliveryOTP;
         this.deliveryTime = deliveryTime;
+        this.orderStatus = orderStatus;
     }
     
     /**
      * Get the unique identifier of the order.
      * @return The unique identifier of the order.
      */
-    public String getObjectId() {
-        return objectId;
+    public String getOrderId() {
+        return orderId;
     }
     
     /**
      * Set the unique identifier of the order.
-     * @param objectId The unique identifier of the order.
+     * @param orderId The unique identifier of the order.
      */
-    public void setObjectId(String objectId) {
-        this.objectId = objectId;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
     
     /**
@@ -155,23 +159,22 @@ public class Order {
      * Get the time when the order was placed.
      * @return The time when the order was placed.
      */
-    public String getOrderTime() {
+    public LocalDateTime getOrderTime() {
         return orderTime;
     }
     
-    /**
+     /**
      * Set the time when the order was placed.
      * @param orderTime The time when the order was placed.
      */
-    public void setOrderTime(String orderTime) {
+    public void setOrderTime(LocalDateTime orderTime) {
         this.orderTime = orderTime;
     }
-    
-    /**
+   /**
      * Get the scheduled delivery time for the order.
      * @return The scheduled delivery time for the order.
      */
-    public String getDeliveryScheduleTime() {
+    public LocalDateTime getDeliveryScheduleTime() {
         return deliveryScheduleTime;
     }
     
@@ -179,7 +182,7 @@ public class Order {
      * Set the scheduled delivery time for the order.
      * @param deliveryScheduleTime The scheduled delivery time for the order.
      */
-    public void setDeliveryScheduleTime(String deliveryScheduleTime) {
+    public void setDeliveryScheduleTime(LocalDateTime deliveryScheduleTime) {
         this.deliveryScheduleTime = deliveryScheduleTime;
     }
     
@@ -215,11 +218,11 @@ public class Order {
         this.deliveryOTP = deliveryOTP;
     }
     
-    /**
+     /**
      * Get the time when the order was delivered.
      * @return The time when the order was delivered.
      */
-    public String getDeliveryTime() {
+    public LocalDateTime getDeliveryTime() {
         return deliveryTime;
     }
     
@@ -227,9 +230,24 @@ public class Order {
      * Set the time when the order was delivered.
      * @param deliveryTime The time when the order was delivered.
      */
-    public void setDeliveryTime(String deliveryTime) {
+    public void setDeliveryTime(LocalDateTime deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
-}
 
+    /**
+     * Get the order status.
+     * @return The order status.
+     */
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+    
+    /**
+     * Set the order status.
+     * @param orderStatus The order status.
+     */
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }    
+}
 
