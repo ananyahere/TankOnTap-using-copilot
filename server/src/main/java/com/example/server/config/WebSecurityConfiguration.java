@@ -15,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -52,7 +53,7 @@ public class WebSecurityConfiguration {
             return configuration;
             }))
             .authorizeHttpRequests(
-                auth -> auth.requestMatchers("/authenticate", "/register", "/catchphase", "/city").permitAll()    // provide path where we do not want apply authentication
+                auth -> auth.requestMatchers("/api/auth/authenticate", "/api/auth/register", "/api/auth/setCity").permitAll()    // provide path where we do not want apply authentication
                     .requestMatchers(HttpMethod.OPTIONS).permitAll() // to configure Spring Security to permit all OPTIONS requests.
                     .anyRequest().authenticated()
             )
@@ -69,7 +70,7 @@ public class WebSecurityConfiguration {
 
     @Bean
     @Primary
-    public PasswordEncoder passwordEncoder()
+    public BCryptPasswordEncoder passwordEncoder()
     {
         return new BCryptPasswordEncoder();
     }

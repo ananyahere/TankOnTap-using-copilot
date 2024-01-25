@@ -20,6 +20,7 @@ import com.example.server.repository.UserRepository;
 import com.example.server.utils.JWTUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Service
@@ -31,6 +32,7 @@ public class JWTService implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
 
+    @Lazy
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -38,7 +40,7 @@ public class JWTService implements UserDetailsService{
         String username = jwtRequest.getUsername();
         String password = jwtRequest.getPassword();
         authenticate(username, password);
-        UserDetails userDetails = loadUserByUsername(username);
+        UserDetails userDetails = loadUserByUsername(username);      
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
         String jwtToken = jwtUtil.generateToken(userDetails);

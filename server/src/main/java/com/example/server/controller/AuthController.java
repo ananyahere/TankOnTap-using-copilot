@@ -25,11 +25,10 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostConstruct
-    public void initRoles() {
-        AuthService authService = new AuthService();
-        authService.initRoles();
-    }
+    // @PostConstruct
+    // public void initRoles() {
+    //     authService.initRoles();
+    // }
     
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
@@ -38,9 +37,8 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<JWTResponse> authenticateUser(@RequestParam String username, @RequestParam String password) {
-        JWTRequest jwtRequest = new JWTRequest(username, password);
-        JWTResponse jwtResponse = jwtService.createJwtToken(jwtRequest);
+    public ResponseEntity<JWTResponse> authenticateUser(@RequestBody JWTRequest jwtRequest) {
+        JWTResponse jwtResponse =  jwtService.createJwtToken(jwtRequest);
         return ResponseEntity.ok(jwtResponse);
     }
 
