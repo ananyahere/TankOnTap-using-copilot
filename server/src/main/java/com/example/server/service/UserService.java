@@ -1,13 +1,17 @@
 package com.example.server.service;
 
 import com.example.server.entity.Address;
+import com.example.server.entity.Role;
 import com.example.server.entity.User;
 import com.example.server.entity.Vehicle;
 import com.example.server.exception.ResourceNotFoundException;
+import com.example.server.repository.RoleRepository;
 import com.example.server.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,12 +20,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     public User getUserById(String userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
     }
 
     public User createUser(User user) {
+        Role userRole = roleRepository.findByTitle("USER")
+            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        user.setRoles(Collections.singleton(userRole));
+        System.out.println(userRole);
         return userRepository.save(user);
     }
 
