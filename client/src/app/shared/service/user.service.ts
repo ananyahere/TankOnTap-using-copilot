@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Address, User, Vehicle } from '../model/user';
+import { LocalstorageService } from './localstorage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,11 @@ export class UserService {
 
   private apiUrl = 'http://localhost:8080/api/users';
 
-  constructor(private http: HttpClient) { }
+  // Initialize with a default value or null if you don't have a default value
+  private currentAddressSubject = new BehaviorSubject<Address | null>(null);
+  currentAddress = this.currentAddressSubject.asObservable();
+
+  constructor(private http: HttpClient, private localStorageService: LocalstorageService) { }
 
   getUserById(id: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`);
@@ -38,5 +43,10 @@ export class UserService {
 
   updateName(id: string, name: string): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/${id}/updateName`, name);
+  }
+
+  setCurrentAddress(address: Address): void {
+    this.currentAddressSubject.next(address);
+    this.localStorageService.setItem('currentAddress', address);
   }
 }

@@ -60,17 +60,3 @@ export class AuthService {
     this.currentUserSubject.next(null);
   }
 }
-
-// register(user: User): Observable<User> {
-//   return this.http.post<any>(`${this.apiUrl}/register`, user).pipe(
-//     tap((response: User) => {
-//       const userData = {
-//         username: response.username,
-//         userId: response.userId,
-//         userRole: response.role[0].title
-//       };
-//       this.localStorageService.setItem('currentUser', userData);
-//       this.currentUserSubject.next(response);
-//     })
-//   );
-// }
