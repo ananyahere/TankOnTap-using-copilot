@@ -8,7 +8,11 @@ export class LocalstorageService {
   constructor() { }
 
   setItem(key: string, value: any): void {
-    localStorage.setItem(key, JSON.stringify(value));
+    if (typeof value === 'string') {
+      localStorage.setItem(key, value);
+    } else {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
   }
 
   getItem(key: string): any {

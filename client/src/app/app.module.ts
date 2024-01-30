@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -17,6 +17,9 @@ import { HeaderComponent } from './core/welcome/header/header.component';
 import { WelcomeComponent } from './core/welcome/welcome/welcome.component';
 import { MaterialModule } from './shared/material/material.module';
 import { AppRoutingModule } from './routing.module';
+import { LayoutComponent } from './core/layout/layout/layout.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,15 +33,24 @@ import { AppRoutingModule } from './routing.module';
     FeaturesComponent,
     HeroComponent,
     HeaderComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true // This is required to register the interceptor globally
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

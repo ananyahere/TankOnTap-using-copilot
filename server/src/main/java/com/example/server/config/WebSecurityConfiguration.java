@@ -44,7 +44,7 @@ public class WebSecurityConfiguration {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(request -> {
             org.springframework.web.cors.CorsConfiguration configuration = new CorsConfiguration();
-            configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://tankontap.netlify.app"));
+            configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:8080"));
             configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
             configuration.setAllowedHeaders(Arrays.asList("*"));
             configuration.setExposedHeaders(Arrays.asList("Authorization"));
@@ -53,7 +53,7 @@ public class WebSecurityConfiguration {
             return configuration;
             }))
             .authorizeHttpRequests(
-                auth -> auth.requestMatchers("/api/auth/authenticate", "/api/auth/register", "/api/auth/setCity").permitAll()    // provide path where we do not want apply authentication
+                auth -> auth.requestMatchers("/api/auth/authenticate", "/api/auth/register", "/api/auth/setAddress").permitAll()    // provide path where we do not want apply authentication
                     .requestMatchers(HttpMethod.OPTIONS).permitAll() // to configure Spring Security to permit all OPTIONS requests.
                     .anyRequest().authenticated()
             )

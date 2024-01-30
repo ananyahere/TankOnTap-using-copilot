@@ -11,6 +11,7 @@ import com.example.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,10 +50,14 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("Address not found with id " + addressId));
     }
 
-    public User saveAddress(String userId, Address address) {
+    public Address saveAddress(String userId, Address address) {
         User user = getUserById(userId);
+        if (user.getAddresses() == null) {
+            user.setAddresses(new ArrayList<>());
+        }
         user.getAddresses().add(address);
-        return userRepository.save(user);
+        userRepository.save(user);
+        return address;
     }
 
     public List<Vehicle> getVehiclesByUserId(String userId) {
@@ -70,6 +75,9 @@ public class UserService {
 
     public User saveVehicle(String userId, Vehicle vehicle) {
         User user = getUserById(userId);
+        if (user.getVehicles() == null) {
+            user.setVehicles(new ArrayList<>());
+        }
         user.getVehicles().add(vehicle);
         return userRepository.save(user);
     }

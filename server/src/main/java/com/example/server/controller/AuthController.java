@@ -1,5 +1,6 @@
 package com.example.server.controller;
 
+import com.example.server.entity.Address;
 import com.example.server.entity.JWTRequest;
 import com.example.server.entity.JWTResponse;
 import com.example.server.entity.User;
@@ -42,10 +43,10 @@ public class AuthController {
         return ResponseEntity.ok(jwtResponse);
     }
 
-    @PostMapping("/setCity")
-    public ResponseEntity<User> setCity(@RequestParam String userId, @RequestParam String city) {
-        User user = userService.updateCity(userId, city);
-        return ResponseEntity.ok(user);
+    @PostMapping("/setAddress")
+    public ResponseEntity<Address> setAddress(@RequestParam String userId, @RequestBody Address address) {
+        Address savedAddress = userService.saveAddress(userId, address);
+        return ResponseEntity.ok(savedAddress);
     }
     
 }

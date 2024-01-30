@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
   setCurrentAddress(address: Address): void {
     this.currentAddress = address;
     this.userService.setCurrentAddress(address);
-    this.toggleDropdown(); // Close the dropdown after setting the address
+    this.toggleDropdown();
   }
 
   loadAddresses(): void {

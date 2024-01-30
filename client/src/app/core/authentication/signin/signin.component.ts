@@ -48,7 +48,7 @@ export class SigninComponent {
             horizontalPosition: 'center',
             verticalPosition: 'bottom',
           });
-          this.currentStep = 2;
+          this.currentStep = this.currentStep + 1;
         },
         error => {
           this.snackBar.open('Signin failed. Please try again.', 'Close', {
@@ -97,9 +97,13 @@ export class SigninComponent {
       message: otp
     };
 
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, 'YOUR_USER_ID')
+    emailjs.send('service_oobe4i4', 'template_fg1qwvv', templateParams, 's8px8g5kv_n6wsVF0')
       .then((result: EmailJSResponseStatus) => {
-        console.log(result.text);
+        this.snackBar.open('Email sent successfully.', 'Close', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });   
       }, (error) => {
         console.log(error.text);
       });
@@ -111,7 +115,8 @@ export class SigninComponent {
 
   sendOTP(): void {
     this.otp = this.generateOTP();
-    this.sendEmail(this.otp);
+    // this.sendEmail(this.otp); // Uncomment this line to send email
+    console.log(this.otp)
     this.isOTPSent = true;
   }
 
@@ -124,7 +129,6 @@ export class SigninComponent {
     this.locationService.getUserCoords()
       .then((coords: any) => {
         this.locationService.getCityAndAddress(coords.latitude, coords.longitude).subscribe((location: any) => {
-          console.log(location);
           const address: Address = {
             addressId: this.generateAddressId(),
             receiver: this.generateUsername(),
@@ -142,7 +146,7 @@ export class SigninComponent {
   }
 
   saveUserAddress(userId: string, address: Address): void {
-    this.userService.saveAddress(userId, address).subscribe(savedAddress => {
+    this.authService.saveAddress(userId, address).subscribe(savedAddress => {
       this.userService.setCurrentAddress(savedAddress);
       this.snackBar.open('Address saved successfully.', 'Close', {
         duration: 5000,

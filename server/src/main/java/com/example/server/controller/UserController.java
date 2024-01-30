@@ -31,9 +31,9 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/addresses")
-    public ResponseEntity<User> saveAddress(@PathVariable String userId, @RequestBody Address address) {
-        User updatedUser = userService.saveAddress(userId, address);
-        return ResponseEntity.ok(updatedUser);
+    public ResponseEntity<Address> saveAddress(@PathVariable String userId, @RequestBody Address address) {
+        Address savedAddress = userService.saveAddress(userId, address);
+        return ResponseEntity.ok(savedAddress);
     }
 
     @GetMapping("/{userId}/vehicles")

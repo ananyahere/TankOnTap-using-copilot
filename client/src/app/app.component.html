@@ -1,0 +1,9 @@
+<div class="bg-[color:var(--primary-color)]">
+    <div *ngIf="!isLoggedIn">
+        <router-outlet></router-outlet>
+    </div>
+    <div *ngIf="isLoggedIn" class="pt-20 lg:pt-8 overflow-y-hidden bg-[color:var(--primary-color)]">
+        <app-navbar class="overflow-x-hidden"></app-navbar>
+        <app-layout></app-layout>
+    </div>
+</div>

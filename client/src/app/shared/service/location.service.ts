@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LocationService {
-  private apiKey = 'YOUR_API_KEY';
+  private apiKey = '80c56e4b58a14bbe9a56883dc42474a8';
 
   constructor(private http: HttpClient) { }
 

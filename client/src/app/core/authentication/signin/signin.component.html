@@ -2,7 +2,7 @@
   <!-- PAGE HEADING -->
   <div class="text-center text-3xl font-bold mt-24">
     <!-- BACK BUTTON -->
-    <fa-icon [icon]="faArrowLeft" class="text-xl items-start cursor-pointer"></fa-icon>
+    <i class="fas fa-arrow-left text-xl items-start cursor-pointer"></i>
     Signin Page
   </div>
   <!-- PAGE CONTENT -->
@@ -60,7 +60,7 @@
           <input formControlName="password" name="password" type="password" id="password"
             class="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12" />
         </form>
-        <button (click)="OnSubmitCredits()"
+        <button (click)="submitSigninForm()"
           class="mt-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]">
           Submit
         </button>
@@ -77,12 +77,12 @@
         </form>
         <button *ngIf="!isOTPSent"
           class="mt-4 mr-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]"
-          (click)="submitOTPForm()">
+          (click)="sendOTP()">
           Get One-time Password on email
         </button>
         <button
           class="mt-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]"
-          (click)="sendOTP()" *ngIf="isOTPSent">
+          (click)="submitOTPForm()" *ngIf="isOTPSent">
           Verify
         </button>
       </div>

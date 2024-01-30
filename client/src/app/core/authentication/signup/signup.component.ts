@@ -47,9 +47,14 @@ export class SignupComponent {
       message: otp
     };
 
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, 'YOUR_USER_ID')
+    emailjs.send('service_oobe4i4', 'template_fg1qwvv', templateParams, 's8px8g5kv_n6wsVF0')
       .then((result: EmailJSResponseStatus) => {
         console.log(result.text);
+        this.snackBar.open('Email sent successfully.', 'Close', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });        
       }, (error) => {
         console.log(error.text);
       });
@@ -72,6 +77,7 @@ export class SignupComponent {
           this.currentStep = this.currentStep + 1;
         },
         error => {
+          console.log(error)
           this.snackBar.open('Registration failed.', 'Close', {
             duration: 5000,
             horizontalPosition: 'center',
@@ -90,20 +96,7 @@ export class SignupComponent {
 
   submitOTPForm(): void {
     if (this.otpForm.valid) {
-      if (this.otpForm.value.otp == this.otp) {
-        this.snackBar.open('OTP is correct. You can now proceed to the next step.', 'Close', {
-          duration: 5000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
-        this.currentStep = 3;
-      } else {
-        this.snackBar.open('OTP is incorrect. Please check your email and try again.', 'Close', {
-          duration: 5000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
-      }
+      this.verifyOTPAndAuthenticate(this.otpForm.value.otp)
     } else {
       this.snackBar.open('OTP is incorrect. Please check your email and try again.', 'Close', {
         duration: 5000,
@@ -115,7 +108,8 @@ export class SignupComponent {
 
   sendOTP(): void {
     this.otp = this.generateOTP();
-    this.sendEmail(this.otp);
+    // this.sendEmail(this.otp); uncomment this line to send email
+    console.log(this.otp)
     this.isOTPSent = true;
   }
 
@@ -146,7 +140,7 @@ export class SignupComponent {
   }
 
   saveUserAddress(userId: string, address: Address): void {
-    this.userService.saveAddress(userId, address).subscribe(savedAddress => {
+    this.authService.saveAddress(userId, address).subscribe(savedAddress => {
       this.userService.setCurrentAddress(savedAddress);
       this.snackBar.open('Address saved successfully.', 'Close', {
         duration: 5000,
@@ -172,5 +166,39 @@ export class SignupComponent {
 
   generateRandomString(): string {
     return 'current-' + Math.random().toString(36).substring(2, 15);
+  }
+
+  verifyOTPAndAuthenticate(otp: number) {
+    if(this.otp == otp){
+      const authRequest = { 
+        username: this.signupForm.value.email,
+        password: this.signupForm.value.password
+      };
+      this.authService.authenticate(authRequest).subscribe(
+        authResponse => {
+          this.snackBar.open('Sign up successfully.', 'Close', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+          this.currentStep = this.currentStep + 1;
+        },
+        authError => {
+          console.log(authError)
+          this.snackBar.open('Authentication failed. Please try again.', 'Close', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+        }
+      );
+    }
+    else {
+      this.snackBar.open('OTP verification failed. Please try again.', 'Close', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      });
+    }
   }
 }

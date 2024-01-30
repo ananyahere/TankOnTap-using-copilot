@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class HeroComponent {
 
+  constructor(private router: Router) { }
+
+  navigateToSignin() {
+    this.router.navigate(['/signin']);
+  }
+
+  navigateToSignup() {
+    this.router.navigate(['/signup']);
+  }
 }

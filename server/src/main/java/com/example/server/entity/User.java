@@ -1,11 +1,13 @@
 package com.example.server.entity;
 import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import java.util.Set;
 
 @Document(collection = "user")
 public class User {
+    @Id
     private String userId;
     private String name;
     private String email;

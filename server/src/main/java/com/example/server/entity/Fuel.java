@@ -1,8 +1,10 @@
 package com.example.server.entity;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "fuel")
 public class Fuel {
+    @Id
     private String fuelId;
     private String type;
     private double amountInInventory;

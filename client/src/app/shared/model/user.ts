@@ -30,5 +30,5 @@ export interface User {
     paymentModes: string[];
     username: string;
     password: string;
-    role: Role[];
+    roles: Role[];
 }

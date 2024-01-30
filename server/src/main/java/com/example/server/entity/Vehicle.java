@@ -2,7 +2,6 @@ package com.example.server.entity;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "vehicle")
 public class Vehicle {
     private String vehicleId;
     private String model;
