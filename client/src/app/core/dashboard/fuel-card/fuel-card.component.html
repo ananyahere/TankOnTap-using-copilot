@@ -1,1 +1,32 @@
-<p>fuel-card works!</p>
+<div
+  class="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
+>
+  <div class="relative">
+    <img
+      [src]="getFuelIcon(fuel.type)" 
+      [ngClass]="fuel.amountInInventory <= 0 ? 'grayscale' : ''"
+    />
+  </div>
+  <div class="flex flex-row justify-between items-start mt-4">
+    <div class="px-2">
+      <p class="text-sm text-gray-800 font-bold">
+        {{ fuel.type }}
+      </p>
+      <p class="text-sm text-grey-800">
+        {{ fuel.amountInInventory }}
+        {{ fuel.unitOfAmountInInventory ? fuel.unitOfAmountInInventory : "Liters" }}
+      </p>
+    </div>
+    <div class="flex flex-col justify-end items-center">
+      <p class="text-sm text-red-500 mt-2" *ngIf="fuel.amountInInventory <= 0">
+        <strong class="whitespace-nowrap"> Out Of Stock </strong>
+      </p>
+      <p class="text-sm text-green-500 mt-2" *ngIf="fuel.amountInInventory > 0">
+        <strong class="whitespace-nowrap"> In Stock </strong>
+      </p>
+      <p class="text-sm">
+        ₹ {{ getFuelPrice() }} / Liter
+      </p>
+    </div>
+  </div>
+</div>

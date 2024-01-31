@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AddFuelComponent } from 'src/app/shared/component/add-fuel/add-fuel.component';
 import { Fuel, Supplier } from 'src/app/shared/model/fuel';
 import { FuelService } from 'src/app/shared/service/fuel.service';
 import { UserService } from 'src/app/shared/service/user.service';
@@ -18,12 +20,14 @@ export class DashboardComponent implements OnInit {
   filteredFuels: Fuel[] = [];
   showAmountFilter = false;
   showPriceFilter = false; 
+  showSupplierFilter = false;
+  showTypeFilter = false;
   types: string[] = [];
   suppliers: string[] = []; 
   fuelTypeFilterForm: FormGroup;
   supplierFilterForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private fuelService: FuelService) { 
+  constructor(private fb: FormBuilder, private userService: UserService, private fuelService: FuelService, public dialog: MatDialog) { 
     this.fuelTypeFilterForm = this.fb.group({
       fuelTypes: this.fb.array(['All', ...this.types].map(() => false))
     });
@@ -69,7 +73,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  toggleTypeFilter() {
+  toggleFilter() {
     this.isFilterOpen = !this.isFilterOpen;
   }
 
@@ -88,6 +92,14 @@ export class DashboardComponent implements OnInit {
 
   togglePriceFilter() {
     this.showPriceFilter = !this.showPriceFilter;
+  }
+
+  toggleSupplierFilter(): void {
+    this.showSupplierFilter = !this.showSupplierFilter;
+  }
+
+  toggleTypeFilter(): void {
+    this.showTypeFilter = !this.showTypeFilter;
   }
 
   sortByPrice(order: 'asc' | 'desc') {
@@ -126,5 +138,16 @@ export class DashboardComponent implements OnInit {
     
     this.types = uniqueTypes;
     this.suppliers = uniqueSuppliers.map(supplier => supplier.name);
+  }
+
+  openAddFuelDialog(fuel: Fuel): void {
+    const dialogRef = this.dialog.open(AddFuelComponent, {
+      width: '500px',
+      data: fuel
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // Display success message
+      
+    });
   }
 }

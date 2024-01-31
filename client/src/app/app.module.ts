@@ -21,6 +21,7 @@ import { LayoutComponent } from './core/layout/layout/layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { LoaderComponent } from './shared/component/loader/loader.component';
+import { FuelCardComponent } from './core/dashboard/fuel-card/fuel-card.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { LoaderComponent } from './shared/component/loader/loader.component';
     HeaderComponent,
     WelcomeComponent,
     LayoutComponent,
-    LoaderComponent
+    LoaderComponent,
+    FuelCardComponent
   ],
   imports: [
     BrowserModule,

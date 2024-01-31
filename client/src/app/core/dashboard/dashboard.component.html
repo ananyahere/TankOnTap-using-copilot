@@ -228,10 +228,10 @@
       <p *ngIf="!isFuelsLoading && fuels.length === 0">
         No Fuels Available.
       </p>
-      <app-fuel-item
+      <app-fuel-card
         *ngFor="let fuelEle of filteredFuels"
-        (click)="openFuelDetailDialog(fuelEle)"
+        (click)="openAddFuelDialog(fuelEle)"
         [fuel]="fuelEle"
-      ></app-fuel-item>
+      ></app-fuel-card>
     </div>
   </div>
