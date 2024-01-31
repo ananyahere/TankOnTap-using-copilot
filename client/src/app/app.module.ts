@@ -20,6 +20,7 @@ import { AppRoutingModule } from './routing.module';
 import { LayoutComponent } from './core/layout/layout/layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
+import { LoaderComponent } from './shared/component/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
     HeroComponent,
     HeaderComponent,
     WelcomeComponent,
-    LayoutComponent
+    LayoutComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

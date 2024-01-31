@@ -23,7 +23,7 @@
           Dashboard
         </a>
       </li>
-      <li *ngIf="isAdmin">
+      <!-- <li *ngIf="isAdmin">
         <a
           class="flex items-center gap-x-3.5 py-2 px-4 bg-gray-100 text-slate-700 rounded-lg hover:bg-[color:var(--darker-secondary-color)] hover:text-white"
           routerLink="/tank"
@@ -104,7 +104,7 @@
           </svg>
           Inventory
         </a>
-      </li>
+      </li> -->
       <li>
         <a
           class="flex items-center gap-x-3.5 py-2 px-4 bg-gray-100 text-slate-700 rounded-lg hover:bg-[color:var(--darker-secondary-color)] hover:text-white"
@@ -121,7 +121,7 @@
               d="M0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm14-7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm-5-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm-5-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4Z"
             />
           </svg>
-          {{ isAdmin ? "All" : "Past" }} Orders
+          Past Orders
         </a>
       </li>
       <li>
