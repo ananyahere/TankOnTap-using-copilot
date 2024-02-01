@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { LoaderComponent } from './shared/component/loader/loader.component';
 import { FuelCardComponent } from './core/dashboard/fuel-card/fuel-card.component';
+import { AddFuelComponent } from './shared/component/add-fuel/add-fuel.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FuelCardComponent } from './core/dashboard/fuel-card/fuel-card.componen
     WelcomeComponent,
     LayoutComponent,
     LoaderComponent,
-    FuelCardComponent
+    FuelCardComponent,
+    AddFuelComponent
   ],
   imports: [
     BrowserModule,

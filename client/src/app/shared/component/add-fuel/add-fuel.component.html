@@ -28,14 +28,14 @@
     <div class="grid w-full grid-cols-1 items-start gap-y-8 lg:gap-x-8">
       <div class="sm:col-span-8 lg:col-span-7">
         <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
-          {{ data.fuelDetails.fuelType }}
+          {{ data.fuel.type }}
         </h2>
 
         <section aria-labelledby="information-heading" class="mt-2">
           <h3 id="information-heading" class="sr-only">Fuel information</h3>
           <p class="text-l text-gray-900">
-            {{ data.fuelDetails.fuelStock }}
-            {{ data.fuelDetails.fuelStockUnit }}
+            {{ data.fuel.amountInInventory }}
+            {{ data.fuel.unitOfAmountInInventory }}
           </p>
         </section>
 
@@ -44,7 +44,7 @@
 
           <!-- Quantity -->
           <div *ngIf="userRole.toLowerCase() === 'user'">
-            <div *ngIf="data.fuelDetails.fuelStock > 0">
+            <div *ngIf="data.fuel.fuelStock > 0">
               <h4 class="text-sm font-bold text-gray-900">
                 Fuel Quantity information
               </h4>
@@ -105,13 +105,13 @@
             <ul class="mt-4 max-w-md divide-y divide-gray-200">
               <li class="mt-2 pb-1">
                 <div class="flex-1 min-w-0 flex flex-row justify-between">
-                  <p>{{ data.fuelDetails.fuelSupplier.name }}</p>
+                  <p>{{ data.fuel.supplier.name }}</p>
                   <a
                     *ngIf="userRole.toLowerCase() === 'admin'"
                     class="text-sm truncate text-[color:var(--darker-secondary-color)] hover:underline"
                     [href]="
                       'mailto:' +
-                      data.fuelDetails.fuelSupplier.email +
+                      data.fuel.supplier.contactNumber +
                       '?subject=Request%20for%20500-liter%20tank%20of%20petrol&body=Hi%20there,%0A%0AI%20hope%20this%20email%20finds%20you%20well.%20I\'m%20writing%20to%20request%20a%20500-liter%20tank%20of%20petrol%20for%20our%20fuel%20inventory%20at%20TankOnTank.%20Can%20you%20please%20let%20me%20know%20the%20price%20and%20availability%20of%20this%3F%0A%0AThank%20you%20very%20much%20for%20your%20help!%20%0A%0ABest%20regards,%0A[Ananya%20Sharma]%0AAdmin%20of%20TankOnTank'
                     "
                   >
@@ -124,7 +124,7 @@
 
           <!-- Add to cart -->
           <button
-            *ngIf="data.fuelDetails.fuelStock > 0"
+            *ngIf="data.fuel.fuelStock > 0"
             (click)="onAddToCart()"
             type="submit"
             class="mt-4 flex w-full items-center justify-center rounded-md border border-transparent bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--darker-secondary-hover-color)] px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer"
