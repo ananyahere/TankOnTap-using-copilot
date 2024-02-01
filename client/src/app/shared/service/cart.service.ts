@@ -21,6 +21,6 @@ export class CartService {
   }
 
   removeItemFromCart(userId: string, fuelItemId: string): Observable<Cart> {
-    return this.http.delete<Cart>(`${this.apiUrl}/${userId}/removeItem`, { body: { fuelItemId } });
+    return this.http.delete<Cart>(`${this.apiUrl}/${userId}/removeItem/${fuelItemId}`, { body: { fuelItemId } });
   }
 }

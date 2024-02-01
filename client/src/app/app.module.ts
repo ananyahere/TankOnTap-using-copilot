@@ -10,7 +10,6 @@ import { SidebarComponent } from './core/layout/sidebar/sidebar.component';
 import { SigninComponent } from './core/authentication/signin/signin.component';
 import { SignupComponent } from './core/authentication/signup/signup.component';
 import { DashboardComponent } from './core/dashboard/dashboard.component';
-import { OrderComponent } from './core/order/order.component';
 import { FeaturesComponent } from './core/welcome/features/features.component';
 import { HeroComponent } from './core/welcome/hero/hero.component';
 import { HeaderComponent } from './core/welcome/header/header.component';
@@ -24,6 +23,10 @@ import { LoaderComponent } from './shared/component/loader/loader.component';
 import { FuelCardComponent } from './core/dashboard/fuel-card/fuel-card.component';
 import { AddFuelComponent } from './shared/component/add-fuel/add-fuel.component';
 import { CartComponent } from './core/cart/cart.component';
+import { OrderSummaryComponent } from './core/order/order-summary/order-summary.component';
+import { OrderHistoryComponent } from './core/order/order-history/order-history.component';
+import { OrderDetailsComponent } from './core/order/order-details/order-details.component';
+import { PlaceOrderComponent } from './shared/component/place-order/place-order.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,6 @@ import { CartComponent } from './core/cart/cart.component';
     SigninComponent,
     SignupComponent,
     DashboardComponent,
-    OrderComponent,
     FeaturesComponent,
     HeroComponent,
     HeaderComponent,
@@ -42,7 +44,11 @@ import { CartComponent } from './core/cart/cart.component';
     LoaderComponent,
     FuelCardComponent,
     AddFuelComponent,
-    CartComponent
+    CartComponent,
+    OrderSummaryComponent,
+    OrderHistoryComponent,
+    OrderDetailsComponent,
+    PlaceOrderComponent
   ],
   imports: [
     BrowserModule,

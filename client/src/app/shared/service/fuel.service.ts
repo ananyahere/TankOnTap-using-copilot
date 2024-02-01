@@ -19,11 +19,11 @@ export class FuelService {
     return this.http.get<Fuel>(`${this.apiUrl}/${fuelId}`);
   }
 
-  addFuel(fuel: Fuel): Observable<Fuel> {
-    return this.http.post<Fuel>(`${this.apiUrl}/`, fuel);
+  addFuel(fuel: Fuel): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/`, fuel);
   }
 
-  updateFuel(fuelId: string, fuel: Fuel): Observable<Fuel> {
-    return this.http.put<Fuel>(`${this.apiUrl}/${fuelId}`, fuel);
+  updateFuel(fuelId: string, fuel: Fuel): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${fuelId}`, fuel);
   }
 }

@@ -1,6 +1,7 @@
 package com.example.server.controller;
 
 import com.example.server.entity.Cart;
+import com.example.server.entity.CartResponse;
 import com.example.server.entity.FuelItem;
 import com.example.server.entity.Response;
 import com.example.server.service.CartService;
@@ -17,22 +18,24 @@ public class CartController {
     private CartService cartService;
     
     @GetMapping("/{userId}")
-    public ResponseEntity<Cart> getCart(@PathVariable String userId) {
+    public ResponseEntity<CartResponse> getCart(@PathVariable String userId) {
         Cart cart = cartService.getCartByUserId(userId);
-        return ResponseEntity.ok(cart);
+        CartResponse cartResponse = new CartResponse(cart.getCartId(), cart.getFuels());
+        return ResponseEntity.ok(cartResponse);
     }
 
     @PostMapping("/{userId}/addItem")
-    public ResponseEntity<Cart> addItemToCart(@PathVariable String userId, @RequestBody FuelItem fuelItem) {
+    public ResponseEntity<CartResponse> addItemToCart(@PathVariable String userId, @RequestBody FuelItem fuelItem) {
         Cart cart = cartService.addItemToCart(userId, fuelItem);
-        return ResponseEntity.ok(cart);
+        CartResponse cartResponse = new CartResponse(cart.getCartId(), cart.getFuels());
+        return ResponseEntity.ok(cartResponse);
     }    
 
-    @DeleteMapping("/{userId}/removeItem")
-    public ResponseEntity<Cart> removeItemFromCart(@PathVariable String userId, @RequestBody FuelItem fuelItem) {
-        String fuelItemId = fuelItem.getFuelItemId();
+    @DeleteMapping("/{userId}/removeItem/{fuelItemId}")
+    public ResponseEntity<CartResponse> removeItemFromCart(@PathVariable String userId, @PathVariable String fuelItemId) {
         Cart cart = cartService.removeItemFromCart(userId, fuelItemId);
-        return ResponseEntity.ok(cart);
+        CartResponse cartResponse = new CartResponse(cart.getCartId(), cart.getFuels());
+        return ResponseEntity.ok(cartResponse);
     }
 
     @ExceptionHandler({ Exception.class })

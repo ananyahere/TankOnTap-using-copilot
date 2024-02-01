@@ -1,14 +1,14 @@
 <div class="p-4">
-    <h3 class="text-2xl font-semibold leading-7 text-gray-900" *ngIf="cart.fuelDetailsInCart.length > 0">
+    <h3 class="text-2xl font-semibold leading-7 text-gray-900" *ngIf="cart.fuels.length > 0">
       Shopping Cart.
     </h3>
-    <h3 class="text-2xl font-semibold leading-7 text-gray-900" *ngIf="cart.fuelDetailsInCart.length === 0">
+    <h3 class="text-2xl font-semibold leading-7 text-gray-900" *ngIf="cart.fuels.length === 0">
       Uh oh! Shopping cart is empty.
     </h3>
   </div>
   <div class="w-full lg:p-10 pt-3 flex flex-col lg:flex-row justify-between">
     <div class="flex-1 border-[var(--darker-secondary-color)]">
-        <div class="relative flex items-center justify-center " *ngIf="cart.fuelDetailsInCart.length === 0">
+        <div class="relative flex items-center justify-center " *ngIf="cart.fuels.length === 0">
           <img
             src="/assets/images/empty-fuel.png" 
             class="h-56 w-80 rounded-sm"
@@ -16,12 +16,12 @@
         </div>
       <div class="flow-root px-2">
         <ul role="list" class="my-6 mt-1divide-y divide-gray-300">
-          <li class="flex py-6 pt-3" *ngFor="let fuel of cart.fuelDetailsInCart">
+          <li class="flex py-6 pt-3" *ngFor="let fuel of cart.fuels">
             <div
               class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
             >
               <img
-                [src]="getFuelIcon(fuel.fuelDetail.fuelType)" 
+                [src]="getFuelIcon(fuel.fuelDetail.type)" 
                 class="h-full w-full object-cover object-center"
               />
             </div>
@@ -31,19 +31,19 @@
                   class="flex justify-between text-base font-medium text-gray-900"
                 >
                   <h3>
-                    <a>{{ fuel.fuelDetail.fuelType }}</a>
+                    <a>{{ fuel.fuelDetail.type }}</a>
                   </h3>
                   <p class="ml-4">
-                    ₹ {{ (fuel.fuelDetail.basePriceHyd * fuel.fuelQuantity).toFixed(2) }}
+                    ₹ {{ (fuel.fuelDetail.basePriceHyd * fuel.quantity).toFixed(2) }}
                   </p>
                 </div>
-                <p class="mt-1 text-sm text-gray-500">Qty {{ fuel.fuelQuantity }} {{fuel.fuelUnit ? fuel.fuelUnit : 'Liters'}}</p>
+                <p class="mt-1 text-sm text-gray-500">Qty {{ fuel.quantity }} {{fuel.unit ? fuel.unit : 'Liters'}}</p>
               </div>
               <div class="flex flex-1 items-end justify-between text-sm">
                 <button
                 type="button"
                 class="font-medium text-indigo-600 hover:text-indigo-500"
-                (click)="onBuy(fuel.fuelItemId)"
+                (click)="onBuy(fuel)"
               >
                 Buy
               </button>
@@ -64,7 +64,7 @@
       <div class="border-t border-gray-300 px-4 py-6 sm:px-6">
         <div class="flex justify-between text-base font-medium text-gray-900">
           <p>Subtotal</p>
-          <p>₹ {{ calculateCartSubTotal() }}</p>
+          <p>₹ {{ calculateTotal() }}</p>
         </div>
         <p class="mt-0.5 text-sm text-gray-500">
           Shipping and taxes calculated at checkout.
