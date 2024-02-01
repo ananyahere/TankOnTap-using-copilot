@@ -28,6 +28,13 @@ public class CartController {
         return ResponseEntity.ok(cart);
     }    
 
+    @DeleteMapping("/{userId}/removeItem")
+    public ResponseEntity<Cart> removeItemFromCart(@PathVariable String userId, @RequestBody FuelItem fuelItem) {
+        String fuelItemId = fuelItem.getFuelItemId();
+        Cart cart = cartService.removeItemFromCart(userId, fuelItemId);
+        return ResponseEntity.ok(cart);
+    }
+
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Response> handleException(Exception ex) {
         Response errorResponse = new Response(null, ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());

@@ -1,11 +1,15 @@
 package com.example.server.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.server.entity.Cart;
 import com.example.server.entity.Role;
 import com.example.server.entity.User;
+import com.example.server.repository.CartRepository;
 import com.example.server.repository.UserRepository;
 
 @Service
@@ -22,6 +26,9 @@ public class AuthService {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private CartRepository cartRepository;
 
     public void initRoles() {
         Role userRole = new Role("USER", "User role");
@@ -40,7 +47,17 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Save the new user
-        return userService.createUser(user);
+        User savedUser = userService.createUser(user);
+
+        // Create a new cart for the user
+        Cart cart = new Cart();
+        cart.setUser(savedUser);
+        cart.setFuels(new ArrayList<>());
+
+        // Save the new cart
+        cartRepository.save(cart);
+
+        return savedUser;
     }    
 }   
 

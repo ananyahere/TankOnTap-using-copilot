@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Fuel } from '../model/fuel';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +11,8 @@ export class FuelService {
 
   constructor(private http: HttpClient) { }
 
-  getAllFuels(): Observable<Fuel[]> {
-    return this.http.get<Fuel[]>(`${this.apiUrl}/`);
+  getAllFuels(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}`);
   }
 
   getFuelById(fuelId: string): Observable<Fuel> {

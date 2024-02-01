@@ -16,7 +16,7 @@ public class FuelController {
     @Autowired
     private FuelService fuelService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Response> getAllFuels() {
         List<Fuel> fuels = fuelService.getAllFuels();
         return ResponseEntity.ok(new Response(fuels, "Fuels fetched successfully", HttpStatus.OK.value()));

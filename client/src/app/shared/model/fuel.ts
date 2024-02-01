@@ -15,7 +15,7 @@ export interface Fuel {
 }
 
 export interface FuelItem {
-    fuelItemId: string;
+    fuelItemId?: string;
     quantity: number;
     unit: string;
     fuelDetail: Fuel;

@@ -38,8 +38,7 @@ export class AuthService {
           username: response.user.username,
           userId: response.user.userId,
           userRole: response.user.roles[0].title
-        };
-        console.log(userData, "userData from auth")
+        };        
         const jwtToken = response.jwtToken;
         this.localStorageService.setItem('userId', userData.userId);
         this.localStorageService.setItem('currentUser', userData);

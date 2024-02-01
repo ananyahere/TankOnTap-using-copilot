@@ -49,7 +49,6 @@ export class SignupComponent {
 
     emailjs.send('service_oobe4i4', 'template_fg1qwvv', templateParams, 's8px8g5kv_n6wsVF0')
       .then((result: EmailJSResponseStatus) => {
-        console.log(result.text);
         this.snackBar.open('Email sent successfully.', 'Close', {
           duration: 5000,
           horizontalPosition: 'center',
@@ -57,6 +56,11 @@ export class SignupComponent {
         });        
       }, (error) => {
         console.log(error.text);
+        this.snackBar.open('Unable to send email. Please try again.', 'Close', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        }); 
       });
   }
 
@@ -122,7 +126,6 @@ export class SignupComponent {
     this.locationService.getUserCoords()
       .then((coords: any) => {
         this.locationService.getCityAndAddress(coords.latitude, coords.longitude).subscribe((location: any) => {
-          console.log(location);
           const address: Address = {
             addressId: this.generateAddressId(),
             receiver: this.generateUsername(),

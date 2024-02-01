@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
     this.userService.currentAddress.subscribe(address => {
       if (address) {
         this.userCity = address.city;
-        this.isCityMatched = ['Bangalore', 'Hyderabad', 'Bhubaneswar'].includes(this.userCity);
+        this.isCityMatched = ['Bangalore', 'Hyderabad', 'Bhubaneswar'].includes(this.userCity);        
       }
     });
     this.getFuels();
@@ -79,9 +79,9 @@ export class DashboardComponent implements OnInit {
 
   getFuels() { 
     this.isFuelsLoading = true;
-    this.fuelService.getAllFuels().subscribe(fuels => {
-      this.fuels = fuels;
-      this.filteredFuels = fuels;
+    this.fuelService.getAllFuels().subscribe(response => {
+      this.fuels = response['data'];
+      this.filteredFuels = this.fuels;
       this.isFuelsLoading = false;
     });
   }

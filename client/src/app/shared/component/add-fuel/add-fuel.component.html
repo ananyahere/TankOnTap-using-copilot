@@ -28,14 +28,14 @@
     <div class="grid w-full grid-cols-1 items-start gap-y-8 lg:gap-x-8">
       <div class="sm:col-span-8 lg:col-span-7">
         <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
-          {{ data.fuel.type }}
+          {{ fuel.type }}
         </h2>
 
         <section aria-labelledby="information-heading" class="mt-2">
           <h3 id="information-heading" class="sr-only">Fuel information</h3>
           <p class="text-l text-gray-900">
-            {{ data.fuel.amountInInventory }}
-            {{ data.fuel.unitOfAmountInInventory }}
+            {{ fuel.amountInInventory }}
+            {{ fuel.unitOfAmountInInventory }}
           </p>
         </section>
 
@@ -43,8 +43,8 @@
           <h3 id="options-heading" class="sr-only">Fuel details</h3>
 
           <!-- Quantity -->
-          <div *ngIf="userRole.toLowerCase() === 'user'">
-            <div *ngIf="data.fuel.fuelStock > 0">
+          <div *ngIf="userRole.toLowerCase() == 'user'">
+            <div *ngIf="fuel.amountInInventory > 0">
               <h4 class="text-sm font-bold text-gray-900">
                 Fuel Quantity information
               </h4>
@@ -56,7 +56,7 @@
                 <input
                   type="number"
                   [ngClass]="
-                    addCartForm.controls.quantity.invalid
+                    !addCartForm.controls['quantity'].invalid
                       ? 'bg-red-50 border border-red-500 text-red-900 text-sm focus:ring-red-500 focus:border-red-500'
                       : ''
                   "
@@ -64,7 +64,7 @@
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 />
                 <p
-                  *ngIf="addCartForm.controls.quantity.invalid"
+                  *ngIf="!addCartForm.controls['quantity'].invalid"
                   class="mt-2 text-sm text-red-600 dark:text-red-500"
                 >
                   Please enter non-zero fuel quantity.
@@ -75,7 +75,7 @@
                 <select
                     class="bg-red-50 border border-red-500 text-red-900 text-sm focus:ring-red-500 focus:border-red-500"
                   [ngClass]="
-                    addCartForm.controls.unit.invalid
+                    !addCartForm.controls['unit'].invalid
                       ? 'bg-red-50 border border-red-500 text-red-900 text-sm focus:ring-red-500 focus:border-red-500'
                       : ''
                   "
@@ -88,7 +88,7 @@
                   <option value="gallons">Gallons</option>
                 </select>
                 <p
-                  *ngIf="addCartForm.controls.unit.invalid"
+                  *ngIf="!addCartForm.controls['unit'].invalid"
                   class="mt-2 text-sm text-red-600 dark:text-red-500"
                 >
                   Please select unit for fuel.
@@ -105,13 +105,13 @@
             <ul class="mt-4 max-w-md divide-y divide-gray-200">
               <li class="mt-2 pb-1">
                 <div class="flex-1 min-w-0 flex flex-row justify-between">
-                  <p>{{ data.fuel.supplier.name }}</p>
+                  <p>{{ fuel.supplier.name }}</p>
                   <a
-                    *ngIf="userRole.toLowerCase() === 'admin'"
+                    *ngIf="userRole.toLowerCase() == 'admin'"
                     class="text-sm truncate text-[color:var(--darker-secondary-color)] hover:underline"
                     [href]="
                       'mailto:' +
-                      data.fuel.supplier.contactNumber +
+                      fuel.supplier.contactNumber +
                       '?subject=Request%20for%20500-liter%20tank%20of%20petrol&body=Hi%20there,%0A%0AI%20hope%20this%20email%20finds%20you%20well.%20I\'m%20writing%20to%20request%20a%20500-liter%20tank%20of%20petrol%20for%20our%20fuel%20inventory%20at%20TankOnTank.%20Can%20you%20please%20let%20me%20know%20the%20price%20and%20availability%20of%20this%3F%0A%0AThank%20you%20very%20much%20for%20your%20help!%20%0A%0ABest%20regards,%0A[Ananya%20Sharma]%0AAdmin%20of%20TankOnTank'
                     "
                   >
@@ -124,8 +124,8 @@
 
           <!-- Add to cart -->
           <button
-            *ngIf="data.fuel.fuelStock > 0"
-            (click)="onAddToCart()"
+            *ngIf="fuel.amountInInventory > 0"
+            (click)="addToCart()"
             type="submit"
             class="mt-4 flex w-full items-center justify-center rounded-md border border-transparent bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--darker-secondary-hover-color)] px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer"
           >

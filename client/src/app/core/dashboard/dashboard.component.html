@@ -216,16 +216,16 @@
     >
       <app-loader></app-loader>
     </div>
-    <div class="text-center" *ngIf="isCityMatched">
+    <div class="text-center" *ngIf="!isCityMatched">
       <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">No Fuel Found</h1>
       <p class="mt-6 text-base leading-7 text-gray-600">Sorry, this location is not supported. Please change your location..</p>
     </div>
     <div
-      *ngIf="!isCityMatched"
+      *ngIf="isCityMatched"
       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
     >
       <!-- FUEL CARD -->
-      <p *ngIf="!isFuelsLoading && fuels.length === 0">
+      <p *ngIf="!isFuelsLoading && filteredFuels.length === 0">
         No Fuels Available.
       </p>
       <app-fuel-card

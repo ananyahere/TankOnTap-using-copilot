@@ -49,4 +49,8 @@ export class UserService {
     this.currentAddressSubject.next(address);
     this.localStorageService.setItem('currentAddress', address);
   }
+
+  getUserRole(): string {
+    return this.localStorageService.getItem('currentUser')['userRole'];
+  }
 }
