@@ -38,18 +38,18 @@
       <div class="sm:col-span-8 lg:col-span-7">
         <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">Checkout</h2>
         <section aria-labelledby="options-heading" class="mt-6">
-          <p class="text-sm font-medium">Closest Warehouse: <span class="bg-yellow-100 text-yellow-800 me-2 px-2.5 py-0.5 rounded">{{ warehouseLoc }}</span></p> 
-          <p class="text-sm font-medium mt-2.5">Estimated Delivery: <span class="bg-red-100 text-red-800 me-2 px-2.5 py-0.5 rounded">{{ deliveryDate }}</span></p>
+          <p class="text-sm font-medium">Closest Warehouse: <span class="bg-yellow-100 text-yellow-800 me-2 px-2.5 py-0.5 rounded">{{ warehouseLocation }}</span></p> 
+          <p class="text-sm font-medium mt-2.5">Estimated Delivery: <span class="bg-red-100 text-red-800 me-2 px-2.5 py-0.5 rounded">{{ arrivalOn }}</span></p>
           <form [formGroup]="checkoutOrderForm">
-            <div *ngIf="!isCurrentLoc()">
+            <div *ngIf="!isCurrentLocation()">
               <label
                 for="address"
                 class="block mt-2 mb-2 text-sm font-medium text-gray-900"
                 >Delivery Address</label
               >
               <select
-                formControlName="address"
-                id="address"
+                formControlName="deliveryAddress"
+                id="deliveryAddress"
                 [ngClass]="
                   false
                     ? 'bg-red-50 border border-red-500 text-red-900 text-sm focus:ring-red-500 focus:border-red-500'
@@ -58,15 +58,15 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
               >
                 <option value="">-- Select an Address --</option>
-                <option *ngFor="let address of addresses" [value]="address">
-                  {{ address }}
+                <option *ngFor="let address of userAddresses" [ngValue]="address">
+                  {{ address.location }}
                 </option>
               </select>
             </div>
 
             <div *ngIf="!isImmediateDelivery()">
               <label
-                for="scheduleTime"
+                for="scheduleDate"
                 class="block mt-2 mb-2 text-sm font-medium text-gray-900"
                 >Schedule a Delivery date</label
               >
@@ -94,26 +94,26 @@
 
             <div class="flex items-center">
               <input
-                formControlName="immediate"
+                formControlName="isImmediateDelivery"
                 type="checkbox"
-                id="immediate"
+                id="isImmediateDelivery"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
               />
               <label
-                for="immediate"
+                for="isImmediateDelivery"
                 class="ms-2 mt-2 mb-2 text-sm font-medium text-gray-900"
                 >Immediate Delivery</label
               >
             </div>
             <div class="flex items-center">
               <input
-                formControlName="isCurrentLoc"
+                formControlName="isCurrentLocation"
                 type="checkbox"
-                id="isCurrentLoc"
+                id="isCurrentLocation"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
               />
               <label
-                for="isCurrentLoc"
+                for="isCurrentLocation"
                 class="ms-2 mt-2 mb-2 text-sm font-medium text-gray-900"
                 >Use my current location</label
               >
@@ -128,7 +128,7 @@
           </div>
           <div class="my-1 flex justify-between text-sm text-gray-500">
             <p>Shipping</p>
-            <p>₹ {{ shipping.toFixed(2) }}</p>
+            <p>₹ {{ shippingCharges.toFixed(2) }}</p>
           </div>
           <div class="my-1 flex justify-between text-sm text-gray-500">
             <p>Taxes</p>
@@ -144,7 +144,7 @@
         </div>
         <!-- Checkout Order -->
         <button
-          (click)="onCheckoutOrder()"
+          (click)="placeOrder()"
           type="submit"
           class="mt-4 flex w-full items-center justify-center rounded-md border border-transparent bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--darker-secondary-hover-color)] px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer"
         >

@@ -9,6 +9,21 @@ import { Fuel } from '../model/fuel';
 export class FuelService {
   private apiUrl = 'http://localhost:8080/api/fuel'; // replace with your API URL
 
+  private warehouses = [
+    {
+      location: "Devender Colony, Kompally, Hyderabad, Telangana",
+      city: "Hyderabad"
+    },
+    {
+      location: "Doddanekkundi Industrial Area Rd, Ferns Paradise, Doddanekkundi, Bengaluru, Karnataka",
+      city: "Bangalore"
+    },
+    {
+      location: "Ranipur Industrial Area, Khurda, Bhubaneswar, Orissa",
+      city: "Bhubaneswar"
+    }
+  ]
+
   constructor(private http: HttpClient) { }
 
   getAllFuels(): Observable<any> {
@@ -25,5 +40,9 @@ export class FuelService {
 
   updateFuel(fuelId: string, fuel: Fuel): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${fuelId}`, fuel);
+  }
+
+  getWarehouses(): any[] {
+    return this.warehouses;
   }
 }

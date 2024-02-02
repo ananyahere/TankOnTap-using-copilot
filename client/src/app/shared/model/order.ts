@@ -2,7 +2,7 @@ import { FuelItem } from "./fuel";
 import { Address, User } from "./user";
 
 export interface Order {
-    orderId: string;
+    orderId?: string;
     user: User;
     deliveryLocation: Address;
     totalAmount: number;
@@ -11,7 +11,7 @@ export interface Order {
     orderTime: Date;
     deliveryScheduleTime: Date;
     orderItems: FuelItem[];
-    deliveryOTP: string;
+    deliveryOTP?: string;
     deliveryTime: Date;
     orderStatus: string;
 }
