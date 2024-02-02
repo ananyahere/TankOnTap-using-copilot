@@ -115,7 +115,7 @@ export class SigninComponent {
 
   sendOTP(): void {
     this.otp = this.generateOTP();
-    // this.sendEmail(this.otp); // Uncomment this line to send email
+    this.sendEmail(this.otp); // Uncomment this line to send email
     console.log(this.otp)
     this.isOTPSent = true;
   }
