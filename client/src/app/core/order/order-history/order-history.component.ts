@@ -93,7 +93,7 @@ export class OrderHistoryComponent implements OnInit{
     return formattedDate;
   }
 
-  openDetails() {
-    this.router.navigate(['/dashboard']);
+  openDetails(orderId: string | undefined) {
+    this.router.navigate([`orders/${orderId}`]);
   }
 }
