@@ -24,6 +24,7 @@
     "autoprefixer": "^10.4.17",
     "emailjs-com": "^3.2.0",
     "postcss": "^8.4.33",
+    "razorpay": "^2.9.2",
     "rxjs": "~7.8.0",
     "tailwindcss": "^3.4.1",
     "tslib": "^2.3.0",

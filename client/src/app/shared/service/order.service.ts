@@ -30,6 +30,10 @@ export class OrderService {
     return this.http.put<any>(`${this.apiUrl}/${orderId}`, order);
   }
 
+  updateOrderStatus(orderId: string, status: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${orderId}/status`, status );
+  }
+
   generateDeliveryOTP(orderId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${orderId}/otp`);
   }

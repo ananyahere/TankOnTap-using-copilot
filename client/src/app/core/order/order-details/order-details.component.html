@@ -8,7 +8,7 @@
         <div
           class="w-1/4 pr-5 pb-5 text-center flex flex-col justify-center relative"
           [ngClass]="
-            orderStatus >= 1 ? 'text-[color:var(--darker-secondary-color)]' : ''
+            orderStatusCode >= 1 ? 'text-[color:var(--darker-secondary-color)]' : ''
           "
         >
           <div class="mx-auto">
@@ -31,7 +31,7 @@
           <hr
             class="hidden lg:block absolute w-[60%] -top-5 left-2/3 h-px my-8 mx-auto border-gray-400 border-1"
             [ngClass]="
-              orderStatus >= 1
+              orderStatusCode >= 1
                 ? 'border-[color:var(--darker-secondary-color)]'
                 : ''
             "
@@ -41,7 +41,7 @@
         <div
           class="w-1/4 pr-5 pb-5 text-center flex flex-col justify-center relative"
           [ngClass]="
-            orderStatus >= 2 ? 'text-[color:var(--darker-secondary-color)]' : ''
+            orderStatusCode >= 2 ? 'text-[color:var(--darker-secondary-color)]' : ''
           "
         >
           <div class="mx-auto">
@@ -64,7 +64,7 @@
           <hr
             class="hidden lg:block absolute w-[60%] -top-5 left-2/3 h-px my-8 mx-auto border-gray-400 border-1"
             [ngClass]="
-              orderStatus >= 2
+              orderStatusCode >= 2
                 ? 'border-[color:var(--darker-secondary-color)]'
                 : ''
             "
@@ -74,7 +74,7 @@
         <div
           class="w-1/4 pr-5 pb-5 text-center flex flex-col justify-center relative"
           [ngClass]="
-            orderStatus >= 3 ? 'text-[color:var(--darker-secondary-color)]' : ''
+            orderStatusCode >= 3 ? 'text-[color:var(--darker-secondary-color)]' : ''
           "
         >
           <div class="mx-auto">
@@ -97,7 +97,7 @@
           <hr
             class="hidden lg:block absolute w-[60%] -top-5 left-2/3 h-px my-8 mx-auto border-gray-400 border-1"
             [ngClass]="
-              orderStatus >= 3
+              orderStatusCode >= 3
                 ? 'border-[color:var(--darker-secondary-color)]'
                 : ''
             "
@@ -107,7 +107,7 @@
         <div
           class="w-1/4 pr-5 pb-5 text-center flex flex-col justify-center relative"
           [ngClass]="
-            orderStatus >= 4 ? 'text-[color:var(--darker-secondary-color)]' : ''
+            orderStatusCode >= 4 ? 'text-[color:var(--darker-secondary-color)]' : ''
           "
         >
           <div class="mx-auto">
@@ -134,25 +134,25 @@
       <div class="flex flex-col md:flex-row mt-5">
         <div class="w-full md:w-4/5">
           <div class="text-2xl">Order Id: {{ order?.orderId ?? "..." }}</div>
-          <div *ngIf="order.scheduledTime" class="text-sm">
-            Scheduled Date: {{ this.formateDateString(order.scheduledTime) }}
+          <div *ngIf="order.deliveryScheduleTime" class="text-sm">
+            Scheduled Date: {{ this.formatDate(order.deliveryScheduleTime) }}
           </div>
           <div *ngIf="order.orderTime" class="text-sm">
-            Order Date: {{ this.formateDateString(order.orderTime) }}
+            Order Date: {{ this.formatDate(order.orderTime) }}
           </div>
-          <div class="text-sm" *ngIf="!isOTPSet">
+          <div class="text-sm" *ngIf="!showDelivery">
             Delivery PIN:
             <span
-              (click)="onGetOTPInfo()"
+              (click)="toggleShowDelivery()"
               class="cursor-pointer text-[color:var(--darker-secondary-color)]"
             >
-              {{ deliveryOTP == null ? "Generate" : "Show" }}
+              {{ deliveryPIN == null ? "Generate" : "Show" }}
             </span>
           </div>
-          <div class="text-sm" *ngIf="isOTPSet">
-            Delivery PIN: {{ deliveryOTP }}
+          <div class="text-sm" *ngIf="showDelivery">
+            Delivery PIN: {{ deliveryPIN }}
             <span
-              (click)="onGetOTPInfo()"
+              (click)="toggleShowDelivery()"
               class="cursor-pointer text-[color:var(--darker-secondary-color)]"
             >
               Hide
@@ -161,12 +161,12 @@
         </div>
         <div class="w-full md:w-1/5 mt-3 md:mt-0">
           <button
-            (click)="onPaymentUpdate()"
+            (click)="onPaymentStatus()"
             type="submit"
             class="flex gap-3 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]"
           >
-            <svg
-              *ngIf="orderStatus >= 2"
+            <!-- <svg
+              *ngIf="orderStatusCode >= 2"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -179,8 +179,8 @@
                 stroke-linejoin="round"
                 d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
               />
-            </svg>
-            {{ orderStatus >= 2 ? "Invoice" : "Generate Payment Link" }}
+            </svg> -->
+            {{ orderStatusCode >= 2 ? "Payment Done :)" : "Generate Payment Link" }}
           </button>
         </div>
       </div>
@@ -190,7 +190,7 @@
         <!-- ORDER DETAILS -->
         <div
           class="flex flex-col px-5 py-3 gap-5"
-          *ngFor="let item of order.orderItemsWithDetails"
+          *ngFor="let item of order.orderItems"
         >
           <!-- INDIVIDUAL ORDER -->
           <div class="flex flex-col md:flex-row gap-5 justify-between p-3">
@@ -198,25 +198,23 @@
               <div class="relative hidden sm:block border h-20 w-20 border-gray-400">
                 <img
                 class="h-full w-full object-cover object-center"
-                [src]="getFuelIcon(item.fuelDetail.fuelType)"  
+                [src]="getFuelIcon(item.fuelDetail.type)"  
               />
               </div>
               <div class="flex flex-col">
                 <div class="font-semibold text-xl">
-                  {{ item.fuelDetail?.fuelType ?? "..." }}
+                  {{ item.fuelDetail?.type ?? "..." }}
                 </div>
                 <div class="text-l">
-                  Qty {{ item.fuelQuantity ?? "..." }}
-                  {{ fuel?.fuelUnit ? fuel?.fuelUnit : "Liters" }}
+                  Qty {{ item.quantity ?? "..." }}
+                  {{ item?.unit ? item?.unit : "Liters" }}
                 </div>
               </div>
             </div>
             <div>
               ₹
               {{
-                item.fuelDetail?.basePriceHyd && item?.fuelQuantity
-                  ? item.fuelDetail?.basePriceHyd * item?.fuelQuantity
-                  : "..."
+                calculateNetItemPrice(item)
               }}
             </div>
           </div>
@@ -228,7 +226,7 @@
       <div class="text-xl">
         <div class="flex flex-row justify-between">
           <div class="font-bold">Total</div>
-          <div>₹ {{ order.totalAmount }}</div>
+          <div>₹ {{ (order.totalAmount + order.extraCharges).toFixed(2) }}</div>
         </div>
       </div>
   
@@ -239,9 +237,9 @@
           <div class="flex flex-col">
             <div class="font-bold text-l">Shipping Address</div>
             <div class="text-base">
-              {{ order.deliveryLoc?.receiver ?? "..." }} <br />
-              {{ order.deliveryLoc?.location ?? "..." }} <br />
-              {{ order.deliveryLoc?.phone ?? "..." }} <br />
+              {{ order.deliveryLocation?.receiver ?? "..." }} <br />
+              {{ order.deliveryLocation?.location ?? "..." }} <br />
+              {{ order.deliveryLocation?.phone ?? "..." }} <br />
             </div>
           </div>
           <div
@@ -249,7 +247,7 @@
           >
             <div class="font-bold text-l">Delivery Date</div>
             <div class="text-base">
-              {{ formateDateString(order.deliveryTime) ?? "..." }}
+              {{ formatDate(order.deliveryTime) ?? "..." }}
             </div>
           </div>
         </div>

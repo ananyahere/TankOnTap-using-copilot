@@ -6,6 +6,7 @@ import { SigninComponent } from './core/authentication/signin/signin.component';
 import { SignupComponent } from './core/authentication/signup/signup.component';
 import { CartComponent } from './core/cart/cart.component';
 import { OrderHistoryComponent } from './core/order/order-history/order-history.component';
+import { OrderDetailsComponent } from './core/order/order-details/order-details.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'cart', component: CartComponent },
   { path: 'orders', component: OrderHistoryComponent },
+  { path: 'orders/:id', component: OrderDetailsComponent },
   { path: '**', redirectTo: '' }
 ];
 
