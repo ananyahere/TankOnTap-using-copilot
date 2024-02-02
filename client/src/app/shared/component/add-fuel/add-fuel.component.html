@@ -64,7 +64,7 @@
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 />
                 <p
-                  *ngIf="!addCartForm.controls['quantity'].invalid"
+                  *ngIf="addCartForm.controls['quantity'].invalid"
                   class="mt-2 text-sm text-red-600 dark:text-red-500"
                 >
                   Please enter non-zero fuel quantity.
@@ -88,7 +88,7 @@
                   <option value="gallons">Gallons</option>
                 </select>
                 <p
-                  *ngIf="!addCartForm.controls['unit'].invalid"
+                  *ngIf="addCartForm.controls['unit'].invalid"
                   class="mt-2 text-sm text-red-600 dark:text-red-500"
                 >
                   Please select unit for fuel.

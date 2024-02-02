@@ -5,12 +5,14 @@
       </h3>
     </div>
   
-    <div *ngIf="isLoading" class="flex justify-center h-full items-center">
+    <div *ngIf="isOrdersLoading" class="flex justify-center h-full items-center">
       <app-loader></app-loader>
     </div>
-    <div *ngIf="!isLoading" class="mt-6">
+    <div *ngIf="!isOrdersLoading" class="mt-6">
       <div class="flex justify-center items-center mb-6">
-        <form 
+
+
+        <!-- <form 
           class="flex flex-col md:flex-row justify-between w-full" 
           [formGroup]="filterOrderHistoryForm">
           <div class="flex flex-wrap md:mr-4">
@@ -46,7 +48,9 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded block w-full p-1"
             />
           </div>
-        </form>
+        </form> -->
+
+
       </div>
       <div
         class="font-thin text-sm mb-3 border border-[color:var(--darker-secondary-color)]"
@@ -59,35 +63,35 @@
             </div>
             <div class="flex flex-col">
               <div class="text-lg" *ngIf="!isAdmin">
-                Order to {{ order.deliveryLoc?.type ?? "..." }}
+                Order to {{ order.deliveryLocation?.type ?? "..." }}
               </div>
               <div class="text-lg" *ngIf="isAdmin">
-                Order to {{ order.deliveryLoc?.receiver ?? "..." }}
+                Order to {{ order.deliveryLocation?.receiver ?? "..." }}
               </div>
               <div>{{ order.orderId }}</div>
-              <span  *ngIf="isAdmin" class="text-green-800">Delivery PIN: {{order.deliveryOtp ?? "..."}}</span>
+              <!-- <span  *ngIf="isAdmin" class="text-green-800">Delivery PIN: {{order.deliveryOtp ?? "..."}}</span> -->
   
-              <span *ngIf="isAdmin" (click)="sendEmail(order)" class="cursor-pointer text-[color:var(--darker-secondary-color)]">Generate Delivery Request</span>
+              <!-- <span *ngIf="isAdmin" (click)="sendEmail(order)" class="cursor-pointer text-[color:var(--darker-secondary-color)]">Generate Delivery Request</span> -->
               <!-- <a *ngIf="isAdmin" class="cursor-pointer text-[color:var(--darker-secondary-color)] hover:underline" [routerLink]="sendEmail(order)">Contact Delivery Partner</a> -->
-              <a *ngIf="isAdmin"  class="cursor-pointer text-[color:var(--darker-secondary-color)] hover:underline" href="mailto:deliveryPartner@example.com?subject=Order%20Delivery%20Request&amp;body=I%20hope%20this%20message%20finds%20you%20well.%20I%20am%20writing%20to%20provide%20you%20with%20the%20details%20of%20an%20upcoming%20fuel%20delivery%20order%20that%20you%20will%20be%20responsible%20for.%20Please%20ensure%20that%20you%20have%20all%20the%20necessary%20information%20required%20for%20the%20fuel%20delivery%20and%20that%20you%20follow%20a%20set%20of%20precautions%20to%20ensure%20a%20safe%20delivery.%20We%20request%20that%20the%20delivery%20person%20follow%20these%20guidelines:%0D%0A%0D%0A- Use appropriate safety gear like gloves, goggles, and aprons.%0D%0A- Ensure that the delivery vehicle is in good condition and no fuel leaks are present.%0D%0A- Verify that the fuel being delivered is the correct type and quantity ordered.%0D%0A- Do not smoke or allow smoking within 30 feet of the fuel delivery.%0D%0A- Turn off the delivery vehicle engine before starting the fuel delivery.%0D%0A- Use a spill containment system with absorbent materials and use caution when handling them.%0D%0A- In case of a fuel spill, immediately use the spill containment materials to contain the spill and prevent it from spreading.%0D%0A- Once you have delivered the fuel, please verify the delivery OTP with the receiver to ensure a successful delivery.%0D%0A%0D%0AIf you have any questions or concerns regarding this order, please do not hesitate to contact me.%0D%0A%0D%0AThank you for your cooperation and commitment to safe fuel delivery.%0D%0A%0D%0ABest regards,%0D%0AAnanya Sharma,%0D%0AAdmin of TankOnTap">Contact Delivery Partner</a>
+              <!-- <a *ngIf="isAdmin"  class="cursor-pointer text-[color:var(--darker-secondary-color)] hover:underline" href="mailto:deliveryPartner@example.com?subject=Order%20Delivery%20Request&amp;body=I%20hope%20this%20message%20finds%20you%20well.%20I%20am%20writing%20to%20provide%20you%20with%20the%20details%20of%20an%20upcoming%20fuel%20delivery%20order%20that%20you%20will%20be%20responsible%20for.%20Please%20ensure%20that%20you%20have%20all%20the%20necessary%20information%20required%20for%20the%20fuel%20delivery%20and%20that%20you%20follow%20a%20set%20of%20precautions%20to%20ensure%20a%20safe%20delivery.%20We%20request%20that%20the%20delivery%20person%20follow%20these%20guidelines:%0D%0A%0D%0A- Use appropriate safety gear like gloves, goggles, and aprons.%0D%0A- Ensure that the delivery vehicle is in good condition and no fuel leaks are present.%0D%0A- Verify that the fuel being delivered is the correct type and quantity ordered.%0D%0A- Do not smoke or allow smoking within 30 feet of the fuel delivery.%0D%0A- Turn off the delivery vehicle engine before starting the fuel delivery.%0D%0A- Use a spill containment system with absorbent materials and use caution when handling them.%0D%0A- In case of a fuel spill, immediately use the spill containment materials to contain the spill and prevent it from spreading.%0D%0A- Once you have delivered the fuel, please verify the delivery OTP with the receiver to ensure a successful delivery.%0D%0A%0D%0AIf you have any questions or concerns regarding this order, please do not hesitate to contact me.%0D%0A%0D%0AThank you for your cooperation and commitment to safe fuel delivery.%0D%0A%0D%0ABest regards,%0D%0AAnanya Sharma,%0D%0AAdmin of TankOnTap">Contact Delivery Partner</a> -->
               <!-- <a *ngIf="isAdmin"  class="cursor-pointer text-[color:var(--darker-secondary-color)] hover:underline" [href]="mailToUrl">Contact Delivery Partner</a> -->
             </div>
           </div>
           <button
             *ngIf="!isAdmin"
             type="submit"
-            (click)="onOpenDetails(order.orderId)"
+            (click)="openDetails()"
             class="flex justify-between items-center gap-3 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 h-full rounded hover:bg-[color:var(--secondary-color)] mt-3 mq"
           >
             More details
           </button>
-          <button
+          <!-- <button
             *ngIf="isAdmin"
             (click)="openUpdateStatusDialog(order.orderId)"
             class="flex justify-between items-center gap-3 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 h-full rounded hover:bg-[color:var(--secondary-color)] mt-3 mq"
           >
             Update Status
-          </button>
+          </button> -->
         </div>
         <div class="flex flex-col sm:flex-row justify-between p-3">
           <div>
@@ -96,7 +100,7 @@
             >
               {{ order.orderStatus ?? "..." }}
             </span>
-            <div class="mt-2">Delivered on {{formatDateString(order.deliveryTime) ?? "..."}}</div>
+            <div class="mt-2">Delivered on {{formatDate(order.deliveryTime) ?? "..."}}</div>
           </div>
           <div class="text-sm">
             {{ "Total amount " }}

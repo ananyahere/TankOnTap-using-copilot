@@ -8,10 +8,10 @@ export interface Order {
     totalAmount: number;
     isImmediate: boolean;
     extraCharges: number; // shipping charges + taxes
-    orderTime: Date;
-    deliveryScheduleTime: Date;
+    orderTime: string;
+    deliveryScheduleTime: string;
     orderItems: FuelItem[];
     deliveryOTP?: string;
-    deliveryTime: Date;
+    deliveryTime: string;
     orderStatus: string;
 }

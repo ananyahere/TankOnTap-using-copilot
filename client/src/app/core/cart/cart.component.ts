@@ -61,7 +61,8 @@ export class CartComponent implements OnInit{
 
   calculateTotal(): string {
     let total = 0;
-    for (const item of this.cart.fuels) {
+    if(this.cart.fuelItems == null) return "0.00"
+    for (const item of this.cart.fuelItems) {
       let basePrice;
       switch (this.userCity) {
         case 'Hyderabad':

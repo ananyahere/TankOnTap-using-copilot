@@ -38,6 +38,10 @@ export class OrderService {
     return this.http.get<any>(`${this.apiUrl}/user/${userId}/last`);
   }
 
+  getOrdersForUser(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}`);
+  }
+
   addItemToOrder(fuelItem: FuelItem): void {
     if(this.currentOrder === null) {
       this.currentOrder = {} as Order;

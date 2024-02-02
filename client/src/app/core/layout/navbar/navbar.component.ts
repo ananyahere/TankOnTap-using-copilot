@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   loadAddresses(): void {
-    const userId = localStorage.getItem('userId');
+    const userId = this.localStorageService.getItem('userId');
     if (userId) {
       this.userService.getUserById(userId).subscribe(user => {
         this.addresses = user.addresses;

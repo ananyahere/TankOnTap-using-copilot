@@ -37,7 +37,7 @@ export class PlaceOrderComponent implements OnInit{
       isImmediateDelivery: [false],
       isCurrentLocation: [false]
     });
-    this.getWarehouseCityAndLocation()
+    // this.getWarehouseCityAndLocation()
     this.checkoutOrderForm.valueChanges.subscribe(() => {
       this.getWarehouseCityAndLocation()
       this.calculateTaxes();
@@ -52,7 +52,7 @@ export class PlaceOrderComponent implements OnInit{
   }
 
   getAllAddresses(): void {
-    const userId = this.localstorageService.getItem('userId');
+    const userId = this.localstorageService.getItem('userId')
     if (!userId) {
       console.error('User ID not found in local storage');
       return;
@@ -61,7 +61,6 @@ export class PlaceOrderComponent implements OnInit{
     this.isLoadingAddresses = true;
     this.userService.getAddressesById(userId).subscribe(
       addresses => {
-        // test & verify
         this.userAddresses = addresses
         this.isLoadingAddresses = false;
       },
@@ -192,14 +191,14 @@ export class PlaceOrderComponent implements OnInit{
       totalAmount: this.total,
       isImmediate: isImmediateDelivery,
       extraCharges: this.taxes + this.shippingCharges,
-      orderTime: new Date(),
-      deliveryScheduleTime: new Date(`${scheduleDate}T${scheduleTime}`),
+      orderTime: new Date().toISOString(),
+      deliveryScheduleTime: new Date(`${scheduleDate}T${scheduleTime}`).toISOString(),
       deliveryLocation: this.checkoutOrderForm.get('deliveryAddress')?.value,
-      deliveryTime: deliveryTime,
+      deliveryTime: deliveryTime.toISOString(),
       orderStatus: 'CONFIRMED'
     };
     console.log('Order details:', orderDetails);
-    this.orderService.placeOrder(this.checkoutOrderForm.value).subscribe(
+    this.orderService.placeOrder(orderDetails).subscribe(
       () => {
         this.snackBar.open('Order placed successfully', 'Close', {
           duration: 5000,

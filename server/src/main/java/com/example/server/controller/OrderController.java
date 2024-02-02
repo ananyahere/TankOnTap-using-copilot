@@ -18,13 +18,13 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Response> placeOrder(@RequestBody Order order) {
         Order placedOrder = orderService.placeOrder(order);
         return ResponseEntity.ok(new Response(placedOrder, "Order placed successfully", HttpStatus.OK.value()));
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Response> getAllOrders() {
         List<Order> orders = orderService.getAllOrders();
         return ResponseEntity.ok(new Response(orders, "Orders fetched successfully", HttpStatus.OK.value()));

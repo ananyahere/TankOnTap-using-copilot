@@ -29,6 +29,7 @@ export class LocationService {
       map(response => {
         const city = response.results[0].city;
         const address = response.results[0].formatted;
+        console.log("response from API - ",{city, response})
         return {
           city,
           address

@@ -1,14 +1,14 @@
 <div class="p-4">
-    <h3 class="text-2xl font-semibold leading-7 text-gray-900" *ngIf="cart.fuels.length > 0">
+    <h3 class="text-2xl font-semibold leading-7 text-gray-900" *ngIf="cart.fuelItems && cart.fuelItems.length > 0">
       Shopping Cart.
     </h3>
-    <h3 class="text-2xl font-semibold leading-7 text-gray-900" *ngIf="cart.fuels.length === 0">
+    <h3 class="text-2xl font-semibold leading-7 text-gray-900" *ngIf="cart.fuelItems && cart.fuelItems.length === 0">
       Uh oh! Shopping cart is empty.
     </h3>
   </div>
   <div class="w-full lg:p-10 pt-3 flex flex-col lg:flex-row justify-between">
     <div class="flex-1 border-[var(--darker-secondary-color)]">
-        <div class="relative flex items-center justify-center " *ngIf="cart.fuels.length === 0">
+        <div class="relative flex items-center justify-center " *ngIf="cart.fuelItems && cart.fuelItems.length === 0">
           <img
             src="/assets/images/empty-fuel.png" 
             class="h-56 w-80 rounded-sm"
@@ -16,7 +16,7 @@
         </div>
       <div class="flow-root px-2">
         <ul role="list" class="my-6 mt-1divide-y divide-gray-300">
-          <li class="flex py-6 pt-3" *ngFor="let fuel of cart.fuels">
+          <li class="flex py-6 pt-3" *ngFor="let fuel of cart.fuelItems">
             <div
               class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
             >

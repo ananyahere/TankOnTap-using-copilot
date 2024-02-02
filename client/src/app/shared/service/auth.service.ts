@@ -56,6 +56,7 @@ export class AuthService {
     this.localStorageService.removeItem('currentUser');
     this.localStorageService.removeItem('jwtToken');
     this.localStorageService.removeItem('userId');
+    this.localStorageService.removeItem('currentAddress')
     this.currentUserSubject.next(null);
   }
 }
