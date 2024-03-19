@@ -31,6 +31,12 @@ public class AuthController {
     //     authService.initRoles();
     // }
     
+    /**
+        * Registers a new user.
+        *
+        * @param user The user object containing the registration details.
+        * @return ResponseEntity<User> The registered user object.
+        */
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         User registeredUser = authService.registerUser(user);
