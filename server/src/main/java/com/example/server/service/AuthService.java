@@ -33,8 +33,8 @@ public class AuthService {
     public void initRoles() {
         Role userRole = new Role("USER", "User role");
         Role adminRole = new Role("ADMIN", "Admin role");
-        roleService.createRole(userRole);
-        roleService.createRole(adminRole);
+        Role createdUserRole = roleService.createRole(userRole);
+        Role createdAdminRole = roleService.createRole(adminRole);
     }
     
     public User registerUser(User user) {

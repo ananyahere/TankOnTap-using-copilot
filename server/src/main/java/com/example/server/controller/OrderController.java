@@ -18,6 +18,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     
+    /**
+     * Places an order.
+     *
+     * @param order the order to be placed
+     * @return a ResponseEntity containing the response with the placed order details
+     */
     @PostMapping("")
     public ResponseEntity<Response> placeOrder(@RequestBody Order order) {
         Order placedOrder = orderService.placeOrder(order);
